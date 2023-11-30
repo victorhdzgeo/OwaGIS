@@ -2,6 +2,7 @@ package owa;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import utils.AreaAptitud;
 import utils.OwaUtileria;
 import utils.FuncionValor;
 import utils.PixelOwa;
@@ -15,12 +16,14 @@ public class Worker implements Runnable{
     private final double alpha;
     private final WritableRaster rasterResultado;
     private final int fila;
+    private final AreaAptitud areaApt;
     
-    public Worker(FuncionValor [] capas,double alpha,int fila,WritableRaster rasterResultado){
+    public Worker(FuncionValor [] capas,double alpha,int fila,WritableRaster rasterResultado,AreaAptitud areaApt){
         this.capas = capas;
         this.alpha = alpha;
         this.rasterResultado = rasterResultado;
         this.fila = fila;
+        this.areaApt=areaApt;
     }
     @Override
     public void run(){
@@ -37,6 +40,7 @@ public class Worker implements Runnable{
                 }else{
                   pixOwa = PixelOwa.valorPixel(listaValores, listaPesos, this.alpha);
                   rasterResultado.setSample(i,this.fila, 0, OwaUtileria.catAptitud(pixOwa));
+                  this.areaApt.cuentaArea(OwaUtileria.catAptitud(pixOwa));
 
                 }
         }

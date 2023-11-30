@@ -74,7 +74,7 @@ public abstract class OwaUtileria {
             }
         }
         
-        File pathRasterTif = new File(pathSalida+BaseDatos.fechaFormat());
+        File pathRasterTif = new File(pathSalida+BaseDatos.fechaFormat(".tif"));
         if (pathRasterTif.exists()) {
             System.out.println("El archivo ya existe. No se va a sobrescribir.");
             }
@@ -87,6 +87,8 @@ public abstract class OwaUtileria {
                 }
     
     }
+    
+    
          
     
     

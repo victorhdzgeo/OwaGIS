@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import utils.BaseDatos;
 import utils.FuncionValor;
+import utils.AreaAptitud;
 
 /**
  *
@@ -13,14 +14,16 @@ import utils.FuncionValor;
  */
 public class Manager {
     private Thread[] poolWorkers;
+    
     public synchronized void generaEscAptConcurrente(FuncionValor [] capas,double alpha, String pathSalida) throws IOException{
+        AreaAptitud areaApt = new AreaAptitud();
         int filas = capas[0].getRenglones();
         int columnas = capas[0].getColumnas();
         BufferedImage resultado = new BufferedImage(columnas, filas, BufferedImage.TYPE_USHORT_GRAY);
         WritableRaster rasterResultado = resultado.getRaster();
         this.poolWorkers = new Thread[filas];
         for(int x=0;x<filas;x++){
-            this.poolWorkers[x]=new Thread(new Worker(capas,alpha,x,rasterResultado));
+            this.poolWorkers[x]=new Thread(new Worker(capas,alpha,x,rasterResultado,areaApt));
             this.poolWorkers[x].start();
         }
         for(int x=0;x<filas;x++){
@@ -30,7 +33,7 @@ public class Manager {
             }
         }
         
-        File pathRasterTif = new File(pathSalida+BaseDatos.fechaFormat());
+        File pathRasterTif = new File(pathSalida+BaseDatos.fechaFormat(".tif"));
         if (pathRasterTif.exists()) {
             System.out.println("El archivo ya existe. No se va a sobrescribir.");
             }
@@ -41,6 +44,8 @@ public class Manager {
                         e.printStackTrace();
                         }
                 }
+        
+        areaApt.escribeReporte(pathSalida);
         }
         
      

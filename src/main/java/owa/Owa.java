@@ -75,7 +75,7 @@ public class Owa {
         Manager m = new Manager();
         tiempoInicialConcurrente = new Date();
         for (int a = 0; a < nAlphas; a++) {
-            m.generaEscAptConcurrente(capas,alphas[a],"Resultados/hilos_"+pathAlphas[a]);
+            m.generaEscAptConcurrente(capas,alphas[a],"Resultados/"+pathAlphas[a]);
             }
         tiempoFinalConcurrente = new Date();
         

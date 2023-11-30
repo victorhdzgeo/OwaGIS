@@ -74,10 +74,10 @@ public class BaseDatos {
             System.out.println("Las capas se almacenaran en el directorio 'Resultados' ");
         }
         }
-    public static String fechaFormat(){
+    public static String fechaFormat(String ext){
         Date meta = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd HHmm");
-        String formatoFecha = "_filtered("+formato.format(meta)+").tif";
+        String formatoFecha = "_filtered("+formato.format(meta)+")"+ext;
 
         return formatoFecha;}
     
