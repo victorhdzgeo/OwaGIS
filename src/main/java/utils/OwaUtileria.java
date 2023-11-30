@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  *
  * @author victor
  */
-public class OwaUtileria {
+public abstract class OwaUtileria {
     
     public static int catAptitud(double pixOwa){
         int categoria =0;
