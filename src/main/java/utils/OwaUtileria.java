@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  *
  * @author victor
  */
-public abstract class OwaUtileria {
+public class OwaUtileria {
     
     public static int catAptitud(double pixOwa){
         int categoria =0;
@@ -56,6 +56,7 @@ public abstract class OwaUtileria {
     public static void generaEscenarioAptitud(FuncionValor[] capas,double alpha, String pathSalida) throws IOException{
         int columnas = capas[0].getColumnas();
         int renglones = capas[0].getRenglones();
+        AreaAptitud areaApt = new AreaAptitud();
         BufferedImage resultado = new BufferedImage(columnas, renglones, BufferedImage.TYPE_USHORT_GRAY);
         WritableRaster rasterResultado = resultado.getRaster();
         
@@ -70,6 +71,7 @@ public abstract class OwaUtileria {
                 }else{
                   double pixOwa = PixelOwa.valorPixel(listaValores, listaPesos, alpha);
                   rasterResultado.setSample(x, y, 0, catAptitud(pixOwa));
+                  areaApt.cuentaArea(catAptitud(pixOwa));
                 }
             }
         }
@@ -85,6 +87,7 @@ public abstract class OwaUtileria {
                         e.printStackTrace();
                         }
                 }
+        areaApt.escribeReporte(pathSalida);
     
     }
     
