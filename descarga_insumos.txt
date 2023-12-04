@@ -1,0 +1,13 @@
+Insumos de prueba para probar el código
+La información consta de de: 
+
+- 10 archivos tif que representan las capas raster del sector pecuario porcino avícola
+- 1 archivo funcion_valor_fv.csv que contiene un ejemplo del archivo input que solicitara el sistema, este archivo debe tener tres columnas: nombre, ruta, w en ese orden.
+
+Instrucciones:
+
+El codigo solicitará la ruta del CSV que contiene la relacion del nombre, ruta y peso de los archivos tif
+actualize unicamente la columna ruta, con la ruta absoluta de cada capa raster en su computador.
+
+
+liga: https://drive.google.com/drive/folders/14IfEn6ohTEJb66Wz5Rdyp8_OKw9WceNG?usp=sharing
