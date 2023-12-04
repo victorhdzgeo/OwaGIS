@@ -4,6 +4,7 @@
  */
 package utils;
 import java.io.*;
+import java.nio.file.FileSystems;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 /**
@@ -23,7 +24,6 @@ public class BaseDatos {
         String [] campos;
         int n_capas = contarCapas(pathCsv);
         FuncionValor[] capas = new FuncionValor[n_capas];
-        dirResultados();
         int i = 0;
         try{
             BufferedReader baseDatosFv = new BufferedReader(new FileReader(pathCsv));
@@ -60,26 +60,29 @@ public class BaseDatos {
         return i-1;
     }
     
-    public static void dirResultados(){
-        File dir = new File("Resultados");
+    public static String dirResultados(String pathCsv){
+        File pathBaseDatos = new File(pathCsv);
+        String directorioAbsoluto = pathBaseDatos.getParent()+FileSystems.getDefault().getSeparator()+"Resultados";
+        System.out.println(directorioAbsoluto);
+        File dir = new File(directorioAbsoluto);
 
         if (!dir.exists()) {
             try {
                 dir.mkdir();
-                System.out.println("Directorio 'Resultados' creado");
+                System.out.println(" Directorio 'Resultados' creado \n");
+                System.out.println(directorioAbsoluto);
             } catch (SecurityException e) {
                 System.out.println("No se pudo crear el directorio 'Resultados' debido a restricciones de seguridad");
             }
         } else {
-            System.out.println("Las capas se almacenaran en el directorio 'Resultados' ");
+            System.out.println("\n Las capas se almacenaran en el directorio 'Resultados' ");
         }
-        }
+        return directorioAbsoluto+FileSystems.getDefault().getSeparator();}
     public static String fechaFormat(String ext){
         Date meta = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd HHmm");
         String formatoFecha = "_filtered("+formato.format(meta)+")"+ext;
 
         return formatoFecha;}
-    
     
 }

@@ -6,6 +6,7 @@ import utils.OwaUtileria;
 import utils.BaseDatos;
 import java.util.Date;
 import java.util.Scanner;
+
 /**
  *
  * @author victor
@@ -28,7 +29,6 @@ public class Owa {
         System.out.println("Recordatorio: Asegurate de que el archivo CSV contenga la estructura y la ruta correcta de los archivo *,tif");
         
         Scanner entradaRuta = new Scanner(System.in);
-        
         String nSector;
         
         while (!archivoEncontrado){
@@ -50,6 +50,7 @@ public class Owa {
         nSector = entradaRuta.nextLine();
         tiempoInicialTotal = new Date();
         FuncionValor [] capas  = BaseDatos.listaCapas(pathCSV,nSector);
+        String dirSalida = utils.BaseDatos.dirResultados(pathCSV);
         double [] alphas = {0.0001,0.1,0.5,1.0,2.0,10.0,1000.0};
         int nAlphas = alphas.length;
         String[] pathAlphas = {nSector+"_aptitud_0001_at_least_one",
@@ -62,11 +63,10 @@ public class Owa {
                                 };
         
         tiempoInicialSerial = new Date() ;
-        // SECUENCIAL
-        
+        // SECUENCIAL; comenta las lines 66 - 68 si deseas suspender el calculo secuencial
         
         for (int a = 0; a < nAlphas; a++) {
-            OwaUtileria.generaEscenarioAptitud(capas,alphas[a],  "Resultados/sec_"+pathAlphas[a]);
+            OwaUtileria.generaEscenarioAptitud(capas,alphas[a],  dirSalida+"sec_"+pathAlphas[a]);
             }
         
         
@@ -75,7 +75,7 @@ public class Owa {
         Manager m = new Manager();
         tiempoInicialConcurrente = new Date();
         for (int a = 0; a < nAlphas; a++) {
-            m.generaEscAptConcurrente(capas,alphas[a],"Resultados/"+pathAlphas[a]);
+            m.generaEscAptConcurrente(capas,alphas[a],dirSalida+pathAlphas[a]);
             }
         tiempoFinalConcurrente = new Date();
         
